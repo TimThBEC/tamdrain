@@ -1,0 +1,14 @@
+/* Global Variables */
+:root {
+    --dark-blue: #0b1c31;
+    --med-gray: #777;
+    --white: #fff;
+  }
+  
+  /* Pointer events */
+  
+  .--no-display-js {
+    pointer-events: none;
+  }
+  
+  
