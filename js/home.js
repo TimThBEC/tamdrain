@@ -4,7 +4,7 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
-var version = 1.1;
+var version = 1.2;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -68,8 +68,8 @@ function introTLPrep() {
     id: "intro",
     scrollTrigger: {
       trigger: introScroll,
-      start: "50% bottom",
-      end: "50% top",
+      start: "33.33% bottom",
+      end: "66.66% top",
       scrub: true,
       markers: true
     }
@@ -77,6 +77,13 @@ function introTLPrep() {
 
   introTL.to(
     heroLayer1,
+    {
+      opacity: 0
+    }
+  );
+
+  introTL.to(
+    heroLayer2,
     {
       opacity: 0
     }
