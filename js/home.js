@@ -7,7 +7,7 @@ gsap.registerPlugin(SplitText);
 
 var version = 2.0;
 
-var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
+var devToolsOn = true; // Set to true to turn on GSAP Dev Tools.
 
 var gsapDevToolsContainer = "#gsap-dev-tools-js"; // Container for GSAP Dev Tools
 
@@ -78,13 +78,24 @@ function introTLPrep() {
 }
 
 function textTLPrep() {
-  var textTl = gsap.timeline({
+  var textTL = gsap.timeline({
     id: "text"
   });
 
-  var TDSSplitText = new SplitText("#quote", { type: "chars" });
+  var TDSSplitText = new SplitText(title, { type: "chars" });
 
   var TDSChars = TDSSplitText.chars;
 
   console.log("Split text = " + TDSChars);
+
+  textTL.from(TDSChars, {
+    duration: 0.8,
+    opacity: 0,
+    scale: 0,
+    y: 80,
+    rotationX: 180,
+    transformOrigin: "0% 50% -50",
+    ease: "back",
+    stagger: 0.01
+  });
 }
