@@ -5,7 +5,7 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 2.0;
+var version = 2.1;
 
 var devToolsOn = true; // Set to true to turn on GSAP Dev Tools.
 
@@ -18,6 +18,7 @@ var heroLayer1 = "#hero-layer-1-js";
 var heroLayer2 = "#hero-layer-2-js";
 
 var title = ".title-js";
+var name = ".name-js";
 
 // Doc ready
 
@@ -80,22 +81,43 @@ function introTLPrep() {
 function textTLPrep() {
   var textTL = gsap.timeline({
     id: "text"
+    //paused: true
   });
 
-  var TDSSplitText = new SplitText(title, { type: "chars" });
+  var titleSplitText = new SplitText(title, {
+    type: "chars",
+    position: "absolute"
+  });
 
-  var TDSChars = TDSSplitText.chars;
+  var nameSplitText = new SplitText(name, {
+    type: "chars",
+    position: "absolute"
+  });
 
-  console.log("Split text = " + TDSChars);
+  var titleChars = titleSplitText.chars;
+  var nameChars = nameSplitText.chars;
 
-  textTL.from(TDSChars, {
-    duration: 0.8,
-    opacity: 0,
-    scale: 0,
-    y: 80,
-    rotationX: 180,
-    transformOrigin: "0% 50% -50",
-    ease: "back",
-    stagger: 0.01
+  textTL.to(titleChars, {
+    left: "0%",
+    stagger: { each: 0.1, from: 1 }
+  });
+
+  textTL.to(
+    titleChars,
+    {
+      opacity: "0",
+      stagger: { each: 0.1, from: 1 }
+    },
+    "-.25"
+  );
+
+  textTL.to(title, { opacity: 0, duration: 0.05 });
+  textTL.from(name, { opacity: 0, duration: 0.05 }, "<");
+
+  textTL.from(nameChars, {
+    left: "0%",
+    opactiy: 0,
+    ease: "back.out(.5)",
+    stagger: { each: 0.2, from: "end" }
   });
 }
