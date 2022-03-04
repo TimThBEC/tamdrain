@@ -5,20 +5,23 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 2.2;
+var version = 2.5;
 
-var devToolsOn = true; // Set to true to turn on GSAP Dev Tools.
+var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
 var gsapDevToolsContainer = "#gsap-dev-tools-js"; // Container for GSAP Dev Tools
 
 var introScroll = ".scroll-js";
-var introDiv = ".intro-js";
+var aboutDiv = ".about-js";
+var textDiv = ".text-js";
 
 var heroLayer1 = "#hero-layer-1-js";
 var heroLayer2 = "#hero-layer-2-js";
 
 var title = ".title-js";
 var name = ".name-js";
+
+var brightYellow = "#fde064";
 
 // Doc ready
 
@@ -65,23 +68,38 @@ function introTLPrep() {
       start: "33.33% bottom",
       end: "66.66% top",
       scrub: true,
-      markers: true
+      markers: false
     }
   });
 
   introTL.to(heroLayer1, {
-    opacity: 0
+    opacity: 0,
+    duration: 1
   });
 
-  introTL.to(introDiv, {
-    opacity: 0
+  introTL.to(heroLayer2, {
+    opacity: 0,
+    duration: 1
   });
+
+  /* introTL.from(
+    aboutDiv,
+    {
+      backgroundColor: brightYellow,
+      duration: 2
+    },
+    "0%"
+  ); */
 }
 
 function textTLPrep() {
   var textTL = gsap.timeline({
-    id: "text"
-    //paused: true
+    id: "text",
+    scrollTrigger: {
+      trigger: introScroll,
+      start: "33.33% top",
+      markers: true
+    }
   });
 
   var titleSplitText = new SplitText(title, {
@@ -97,16 +115,20 @@ function textTLPrep() {
   var titleChars = titleSplitText.chars;
   var nameChars = nameSplitText.chars;
 
-  textTL.to(titleChars, {
-    left: "0%",
-    opacity: 0,
-    stagger: { each: 0.1 }
-  });
+  textTL
+    .addLabel("start")
+    .to(titleChars, {
+      left: "0%",
+      opacity: 0,
+      stagger: { each: 0.1 }
+    })
 
-  textTL.from(nameChars, {
-    left: "0%",
-    opacity: 0,
-    ease: "back.out(.5)",
-    stagger: { each: 0.2, from: "end" }
-  });
+    .from(nameChars, {
+      left: "0%",
+      opacity: 0,
+      ease: "back.out(.5)",
+      stagger: { each: 0.2, from: "end" }
+    })
+
+    .to(textDiv, { top: "5%", duration: 4, ease: "back.out(1)" }, "start");
 }
