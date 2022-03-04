@@ -5,7 +5,7 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 2.1;
+var version = 2.2;
 
 var devToolsOn = true; // Set to true to turn on GSAP Dev Tools.
 
@@ -99,24 +99,13 @@ function textTLPrep() {
 
   textTL.to(titleChars, {
     left: "0%",
-    stagger: { each: 0.1, from: 1 }
+    opacity: 0,
+    stagger: { each: 0.1 }
   });
-
-  textTL.to(
-    titleChars,
-    {
-      opacity: "0",
-      stagger: { each: 0.1, from: 1 }
-    },
-    "-.25"
-  );
-
-  textTL.to(title, { opacity: 0, duration: 0.05 });
-  textTL.from(name, { opacity: 0, duration: 0.05 }, "<");
 
   textTL.from(nameChars, {
     left: "0%",
-    opactiy: 0,
+    opacity: 0,
     ease: "back.out(.5)",
     stagger: { each: 0.2, from: "end" }
   });
