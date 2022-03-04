@@ -4,13 +4,14 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
-var version = 1.2;
+var version = 1.3;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
 var gsapDevToolsContainer = "#gsap-dev-tools-js"; // Container for GSAP Dev Tools
 
 var introScroll = ".scroll-js";
+var introDiv = ".intro-js";
 
 var heroLayer1 = "#hero-layer-1-js";
 var heroLayer2 = "#hero-layer-2-js";
@@ -83,7 +84,7 @@ function introTLPrep() {
   );
 
   introTL.to(
-    heroLayer2,
+    introDiv,
     {
       opacity: 0
     }
