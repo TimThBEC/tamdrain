@@ -3,8 +3,9 @@
 // Init
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText);
 
-var version = 1.4;
+var version = 2.0;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -15,6 +16,8 @@ var introDiv = ".intro-js";
 
 var heroLayer1 = "#hero-layer-1-js";
 var heroLayer2 = "#hero-layer-2-js";
+
+var title = ".title-js";
 
 // Doc ready
 
@@ -48,6 +51,7 @@ function gsapPrep() {
   // Timelines that don't depend on breakpoints
 
   introTLPrep();
+  textTLPrep();
 }
 
 function introTLPrep() {
@@ -71,4 +75,16 @@ function introTLPrep() {
   introTL.to(introDiv, {
     opacity: 0
   });
+}
+
+function textTLPrep() {
+  var textTl = gsap.timeline({
+    id: "text"
+  });
+
+  var TDSSplitText = new SplitText("#quote", { type: "chars" });
+
+  var TDSChars = TDSSplitText.chars;
+
+  console.log("Split text = " + TDSChars);
 }
