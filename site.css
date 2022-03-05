@@ -1,14 +1,22 @@
+/* Tam Design Studios Site CSS v1.1 */
+
 /* Global Variables */
 :root {
-    --dark-blue: #0b1c31;
-    --med-gray: #777;
-    --white: #fff;
-  }
-  
-  /* Pointer events */
-  
-  .--no-display-js {
-    pointer-events: none;
-  }
-  
-  
+  --white: #fff;
+}
+
+/* Pointer events */
+
+.featured__item:nth-child(odd) .featured__h2 {
+  transform: rotate(-20deg);
+}
+
+.featured__item:nth-child(odd) .featured__img1 {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  transform: rotate(-20deg);
+}
+
+.--no-display-js {
+  pointer-events: none;
+}
