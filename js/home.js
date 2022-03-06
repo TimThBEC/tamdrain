@@ -5,7 +5,7 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 2.5;
+var version = 2.6;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -21,6 +21,8 @@ var heroLayer2 = "#hero-layer-2-js";
 var title = ".title-js";
 var name = ".name-js";
 
+var featImg1 = ".featured__img1";
+
 var brightYellow = "#fde064";
 
 // Doc ready
@@ -30,7 +32,7 @@ $(document).ready(function () {
 
   gsapPrep();
   gsapDevTools();
-}); // End doc ready
+});
 
 // Functions
 
@@ -56,6 +58,7 @@ function gsapPrep() {
 
   introTLPrep();
   textTLPrep();
+  featImgTLPrep();
 }
 
 function introTLPrep() {
@@ -81,15 +84,6 @@ function introTLPrep() {
     opacity: 0,
     duration: 1
   });
-
-  /* introTL.from(
-    aboutDiv,
-    {
-      backgroundColor: brightYellow,
-      duration: 2
-    },
-    "0%"
-  ); */
 }
 
 function textTLPrep() {
@@ -98,7 +92,7 @@ function textTLPrep() {
     scrollTrigger: {
       trigger: introScroll,
       start: "33.33% top",
-      markers: true
+      markers: false
     }
   });
 
@@ -131,4 +125,36 @@ function textTLPrep() {
     })
 
     .to(textDiv, { top: "5%", duration: 4, ease: "back.out(1)" }, "start");
+}
+
+function featImgTLPrep() {
+  var allImg1s = gsap.utils.toArray(featImg1);
+
+  allImg1s.forEach((img) => {
+    // ?? console.log("Image index = " + img.index);
+
+    gsap.to(img, {
+      scale: 1.3,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: img,
+        start: "top bottom",
+        end: "50% 50%",
+        scrub: true,
+        markers: true
+      }
+    });
+
+    gsap.from(img, {
+      scale: 1.3,
+      ease: "power1.in",
+      scrollTrigger: {
+        trigger: img,
+        start: "50% 50%",
+        end: "bottom top",
+        scrub: true,
+        markers: true
+      }
+    });
+  });
 }
