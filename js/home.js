@@ -128,10 +128,14 @@ function textTLPrep() {
 }
 
 function featImgTLPrep() {
+  // Create timelines for all Feature Image 1s
+
   var allImg1s = gsap.utils.toArray(featImg1);
 
-  allImg1s.forEach((img) => {
-    // ?? console.log("Image index = " + img.index);
+  allImg1s.forEach((img, imgNum) => {
+    // Add var for image timeline array here
+
+    console.log("Image index = " + imgNum);
 
     gsap.to(img, {
       scale: 1.3,
