@@ -5,7 +5,7 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 2.6;
+var version = 2.8;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -131,13 +131,35 @@ function featImgTLPrep() {
   // Create timelines for all Feature Image 1s
 
   var allImg1s = gsap.utils.toArray(featImg1);
+  var img1TLs = [];
 
   allImg1s.forEach((img, imgNum) => {
     // Add var for image timeline array here
 
     console.log("Image index = " + imgNum);
 
-    gsap.to(img, {
+    img1TLs[imgNum] = gsap.timeline({
+      scrollTrigger: {
+        trigger: img,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        markers: true
+      }
+    });
+
+    img1TLs[imgNum]
+      .to(img, {
+        scale: 1.3,
+        ease: "power1.out"
+      })
+
+      .to(img, {
+        scale: 1,
+        ease: "power1.out"
+      });
+
+    /*     gsap.to(img, {
       scale: 1.3,
       ease: "power1.out",
       scrollTrigger: {
@@ -160,5 +182,8 @@ function featImgTLPrep() {
         markers: true
       }
     });
+ */
+
+    // end forEach
   });
 }
