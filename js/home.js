@@ -5,21 +5,33 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 2.9;
+var version = 3.1;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
 var gsapDevToolsContainer = "#gsap-dev-tools-js"; // Container for GSAP Dev Tools
 
-var introScroll = ".scroll-js";
-var aboutDiv = ".about-js";
+var introWrap = ".intro__wrap-js";
+var introImg1 = ".intro__img1-js";
+var introImg2 = ".intro__img2-js";
+var introSubtitleWrap = ".intro__subtitle-wrap-js";
+var aboutImg = ".about__img-js";
+var introTitle = ".intro__title-js";
+var aboutName = ".about__name-js";
+var aboutText = ".about__text-js";
+var aboutCTA = ".about__cta-js";
+
+//--------------------------------------------------------
+
+/* var aboutDiv = ".about-js";
 var textDiv = ".text-js";
 
-var heroLayer1 = "#hero-layer-1-js";
 var heroLayer2 = "#hero-layer-2-js";
 
 var title = ".title-js";
 var name = ".name-js";
+ */
+//-----------------------------------------------------
 
 var featImg1 = ".featured__img1-js";
 var featImg2 = ".featured__img2-js";
@@ -61,7 +73,7 @@ function gsapPrep() {
   // Timelines that don't depend on breakpoints
 
   introTLPrep();
-  textTLPrep();
+  //textTLPrep();
 
   // if (window.matchMedia("(min-width: 990px)").matches) {
   featImgTLPrep();
@@ -69,29 +81,51 @@ function gsapPrep() {
 }
 
 function introTLPrep() {
-  // Topic 1 - Image Parallax
+  // Prep text
+
+  var titleSplitText = new SplitText(introTitle, { type: "chars" });
+  var titleChars = titleSplitText.chars;
+  var nameSplitText = new SplitText(aboutName, { type: "chars" });
+  var nameChars = nameSplitText.chars;
+
+  //Define timeline
 
   var introTL = gsap.timeline({
     id: "intro",
     scrollTrigger: {
-      trigger: introScroll,
-      start: "33.33% bottom",
-      end: "66.66% top",
+      trigger: introWrap,
+      start: "34% bottom",
+      end: "80% bottom",
       scrub: true,
-      markers: false
+      markers: true
     }
   });
 
-  introTL.to(heroLayer1, {
-    opacity: 0,
-    duration: 1
-  });
+  // Build timeline
 
+  introTL
+    .to(introImg1, { opacity: 0 })
+    .to(introSubtitleWrap, { opacity: 0 }, "<")
+    .to(aboutImg, { opacity: 1 })
+    .from(aboutImg, { xPercent: 3 }, "<")
+    .to(titleChars, { opacity: 0, duration: 1, stagger: { each: 0.1 } })
+    .set(aboutName, { zIndex: 30 }, "<")
+    .from(
+      nameChars,
+      { opacity: 0, duration: 1, stagger: { each: 0.1 } },
+      "<+=0.25"
+    )
+    .from(aboutText, { opacity: 0, ease: "none" })
+    .to(introImg2, { opacity: 0, ease: "none" }, "<+=0.25")
+    .to(aboutCTA, { scale: 1 }, ">-0.25");
+
+  /*
   introTL.to(heroLayer2, {
     opacity: 0,
     duration: 1
   });
-}
+ */
+} // end function
 
 function textTLPrep() {
   var textTL = gsap.timeline({
@@ -103,17 +137,18 @@ function textTLPrep() {
     }
   });
 
-  var titleSplitText = new SplitText(title, {
+  var titleSplitText = new SplitText(introTitle, {
     type: "chars",
     position: "absolute"
   });
+
+  var titleChars = titleSplitText.chars;
 
   var nameSplitText = new SplitText(name, {
     type: "chars",
     position: "absolute"
   });
 
-  var titleChars = titleSplitText.chars;
   var nameChars = nameSplitText.chars;
 
   textTL
@@ -142,8 +177,6 @@ function featImgTLPrep() {
 
   allImg1s.forEach((img, imgNum) => {
     // Add var for image timeline array here
-
-    console.log("Image1 index = " + imgNum);
 
     img1TLs[imgNum] = gsap.timeline({
       scrollTrigger: {
@@ -175,8 +208,6 @@ function featImgTLPrep() {
   allImg2s.forEach((img, imgNum) => {
     // Add var for image timeline array here
 
-    console.log("Image2 index = " + imgNum);
-
     img2TLs[imgNum] = gsap.timeline({
       scrollTrigger: {
         trigger: img,
@@ -207,8 +238,6 @@ function featImgTLPrep() {
   allImg3s.forEach((img, imgNum) => {
     // Add var for image timeline array here
 
-    console.log("Image3 index = " + imgNum);
-
     img3TLs[imgNum] = gsap.timeline({
       scrollTrigger: {
         trigger: img,
@@ -237,8 +266,6 @@ function featImgTLPrep() {
   var featTitlesTL = [];
 
   allFeatTitles.forEach((img, imgNum) => {
-    console.log("Title index = " + imgNum);
-
     featTitlesTL[imgNum] = gsap.timeline({
       scrollTrigger: {
         trigger: img,
