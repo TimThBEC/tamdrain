@@ -5,7 +5,7 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 2.8;
+var version = 2.9;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -21,7 +21,11 @@ var heroLayer2 = "#hero-layer-2-js";
 var title = ".title-js";
 var name = ".name-js";
 
-var featImg1 = ".featured__img1";
+var featImg1 = ".featured__img1-js";
+var featImg2 = ".featured__img2-js";
+var featImg3 = ".featured__img3-js";
+var featTitle = ".featured__h2-js";
+var featScale = 1.15;
 
 var brightYellow = "#fde064";
 
@@ -58,7 +62,10 @@ function gsapPrep() {
 
   introTLPrep();
   textTLPrep();
+
+  // if (window.matchMedia("(min-width: 990px)").matches) {
   featImgTLPrep();
+  // }
 }
 
 function introTLPrep() {
@@ -136,7 +143,7 @@ function featImgTLPrep() {
   allImg1s.forEach((img, imgNum) => {
     // Add var for image timeline array here
 
-    console.log("Image index = " + imgNum);
+    console.log("Image1 index = " + imgNum);
 
     img1TLs[imgNum] = gsap.timeline({
       scrollTrigger: {
@@ -144,13 +151,13 @@ function featImgTLPrep() {
         start: "top bottom",
         end: "bottom top",
         scrub: true,
-        markers: true
+        markers: false
       }
     });
 
     img1TLs[imgNum]
       .to(img, {
-        scale: 1.3,
+        scale: featScale,
         ease: "power1.out"
       })
 
@@ -158,32 +165,99 @@ function featImgTLPrep() {
         scale: 1,
         ease: "power1.out"
       });
+  }); // end forEach
 
-    /*     gsap.to(img, {
-      scale: 1.3,
-      ease: "power1.out",
+  // Create timelines for all Feature Image 2s
+
+  var allImg2s = gsap.utils.toArray(featImg2);
+  var img2TLs = [];
+
+  allImg2s.forEach((img, imgNum) => {
+    // Add var for image timeline array here
+
+    console.log("Image2 index = " + imgNum);
+
+    img2TLs[imgNum] = gsap.timeline({
       scrollTrigger: {
         trigger: img,
         start: "top bottom",
-        end: "50% 50%",
-        scrub: true,
-        markers: true
-      }
-    });
-
-    gsap.from(img, {
-      scale: 1.3,
-      ease: "power1.in",
-      scrollTrigger: {
-        trigger: img,
-        start: "50% 50%",
         end: "bottom top",
         scrub: true,
-        markers: true
+        markers: false
       }
     });
- */
 
-    // end forEach
-  });
-}
+    img2TLs[imgNum]
+      .to(img, {
+        scale: featScale,
+        ease: "power1.out"
+      })
+
+      .to(img, {
+        scale: 1,
+        ease: "power1.out"
+      });
+  }); // end forEach
+
+  // Create timelines for all Feature Image 3s
+
+  var allImg3s = gsap.utils.toArray(featImg3);
+  var img3TLs = [];
+
+  allImg3s.forEach((img, imgNum) => {
+    // Add var for image timeline array here
+
+    console.log("Image3 index = " + imgNum);
+
+    img3TLs[imgNum] = gsap.timeline({
+      scrollTrigger: {
+        trigger: img,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        markers: false
+      }
+    });
+
+    img3TLs[imgNum]
+      .to(img, {
+        scale: featScale,
+        ease: "power1.out"
+      })
+
+      .to(img, {
+        scale: 1,
+        ease: "power1.out"
+      });
+  }); // end forEach
+
+  // Create timelines for all Featured Titles
+
+  var allFeatTitles = gsap.utils.toArray(featTitle);
+  var featTitlesTL = [];
+
+  allFeatTitles.forEach((img, imgNum) => {
+    console.log("Title index = " + imgNum);
+
+    featTitlesTL[imgNum] = gsap.timeline({
+      scrollTrigger: {
+        trigger: img,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        markers: false
+      }
+    });
+
+    featTitlesTL[imgNum]
+      .to(img, {
+        scale: featScale,
+        ease: "power1.out"
+      })
+
+      .to(img, {
+        scale: 1,
+        ease: "power1.out"
+      });
+  }); // end forEach
+} // end function
