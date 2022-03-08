@@ -26,7 +26,7 @@ var featImg1 = ".featured__img1-js";
 var featImg2 = ".featured__img2-js";
 var featImg3 = ".featured__img3-js";
 var featTitle = ".featured__h2-js";
-var featScale = 1.15;
+var featScale = 1.11;
 
 var brightYellow = "#fde064";
 
