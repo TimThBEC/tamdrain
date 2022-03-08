@@ -5,7 +5,7 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
-var version = 3.1;
+var version = 3.2;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -14,24 +14,13 @@ var gsapDevToolsContainer = "#gsap-dev-tools-js"; // Container for GSAP Dev Tool
 var introWrap = ".intro__wrap-js";
 var introImg1 = ".intro__img1-js";
 var introImg2 = ".intro__img2-js";
-var introSubtitleWrap = ".intro__subtitle-wrap-js";
-var aboutImg = ".about__img-js";
 var introTitle = ".intro__title-js";
+var introSubtitleWrap = ".intro__subtitle-wrap-js";
+
+var aboutImg = ".about__img-js";
 var aboutName = ".about__name-js";
 var aboutText = ".about__text-js";
 var aboutCTA = ".about__cta-js";
-
-//--------------------------------------------------------
-
-/* var aboutDiv = ".about-js";
-var textDiv = ".text-js";
-
-var heroLayer2 = "#hero-layer-2-js";
-
-var title = ".title-js";
-var name = ".name-js";
- */
-//-----------------------------------------------------
 
 var featImg1 = ".featured__img1-js";
 var featImg2 = ".featured__img2-js";
@@ -73,7 +62,6 @@ function gsapPrep() {
   // Timelines that don't depend on breakpoints
 
   introTLPrep();
-  //textTLPrep();
 
   // if (window.matchMedia("(min-width: 990px)").matches) {
   featImgTLPrep();
@@ -97,7 +85,7 @@ function introTLPrep() {
       start: "34% bottom",
       end: "80% bottom",
       scrub: true,
-      markers: true
+      markers: false
     }
   });
 
@@ -118,13 +106,6 @@ function introTLPrep() {
     .from(aboutText, { opacity: 0, ease: "none" })
     .to(introImg2, { opacity: 0, ease: "none" }, "<+=0.25")
     .to(aboutCTA, { scale: 1 }, ">-0.25");
-
-  /*
-  introTL.to(heroLayer2, {
-    opacity: 0,
-    duration: 1
-  });
- */
 } // end function
 
 function textTLPrep() {
