@@ -51,15 +51,15 @@
 .featured__item:nth-child(4n + 2) .featured__img1-js {
   grid-column-start: 1;
   grid-column-end: 1;
-  grid-row-start: 2;
-  grid-row-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
 }
 
 .featured__item:nth-child(4n + 2) .featured__img2-js {
   grid-column-start: 1;
   grid-column-end: 1;
-  grid-row-start: 1;
-  grid-row-end: 1;
+  grid-row-start: 2;
+  grid-row-end: 2;
 }
 
 .featured__item:nth-child(4n + 2) .featured__img3-js {
