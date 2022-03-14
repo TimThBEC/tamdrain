@@ -7,7 +7,9 @@
 
 /* Pointer events */
 
-.--no-display-js {
+.--no-display-js,
+.intro,
+.intro__img1-js {
   pointer-events: none;
 }
 
