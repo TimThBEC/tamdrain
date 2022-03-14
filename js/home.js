@@ -4,7 +4,7 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
-var version = 4.0;
+var version = 4.1;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -84,14 +84,14 @@ function introTLPrep() {
   introTL
     .to(introImg1, { opacity: 0 })
     .to(introSubtitleWrap, { opacity: 0 }, "<")
-    .from(aboutImg, { opacity: 0 })
-    .from(aboutImg, { xPercent: 3 }, "<")
     .to(introTitle, { xPercent: -50, opacity: 0 }, "<")
     .set(aboutName, { zIndex: 30 }, "<")
     .from(aboutName, { xPercent: -50, opacity: 0 }, "<+0.5")
-    .to(aboutPainting, { opacity: 0 }, "<+1")
+    .from(aboutImg, { opacity: 0 }, ">1")
+    .from(aboutImg, { xPercent: 10, duration: 1 }, "<")
+    .to(aboutPainting, { opacity: 0 }, ">+1")
     .from(aboutText, { opacity: 0, ease: "none" })
-    .from(aboutCTA, { scale: 0.2 }, ">-0.25");
+    .from(aboutCTA, { scale: 0 }, ">-0.25");
 } // end function
 
 function featImgTLPrep() {
