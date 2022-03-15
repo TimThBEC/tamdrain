@@ -4,11 +4,13 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
-var version = 4.1;
+var version = 4.3;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
 var gsapDevToolsContainer = "#gsap-dev-tools-js"; // Container for GSAP Dev Tools
+
+var desktopWidth = "(min-width: 992px)";
 
 var introWrap = ".intro__wrap-js";
 var introImg1 = ".intro__img1-js";
@@ -31,42 +33,15 @@ var featScale = 1.11;
 
 $(document).ready(function () {
   console.log("home.js v" + version);
-
-  gsapPrep();
+  introTLPrep();
+  featImgTLPrep();
   gsapDevTools();
 });
 
 // Functions
 
-function gsapDevTools() {
-  // Set up GSAP dev tools
-
-  if (devToolsOn) {
-    gsap.set(gsapDevToolsContainer, { display: "block" });
-    GSDevTools.create({ container: gsapDevToolsContainer });
-  }
-}
-
-function gsapPrep() {
-  //Breakpoints
-
-  if (window.matchMedia("(min-width: 992px)").matches) {
-    console.log("Desktop");
-  } else {
-    console.log("Mobile");
-  }
-
-  // Timelines that don't depend on breakpoints
-
-  introTLPrep();
-
-  // if (window.matchMedia("(min-width: 990px)").matches) {
-  featImgTLPrep();
-  // }
-}
-
 function introTLPrep() {
-  //Define timeline
+  //Timeline for intro animations
 
   var introTL = gsap.timeline({
     id: "intro",
@@ -75,23 +50,40 @@ function introTLPrep() {
       start: "34% bottom",
       end: "80% bottom",
       scrub: true,
-      markers: true
+      markers: false
     }
   });
 
-  // Build timeline
+  if (window.matchMedia(desktopWidth).matches) {
+    console.log("Desktop Intro");
 
-  introTL
-    .to(introImg1, { opacity: 0 })
-    .to(introSubtitleWrap, { opacity: 0 }, "<")
-    .to(introTitle, { xPercent: -50, opacity: 0 }, "<")
-    .set(aboutName, { zIndex: 30 }, "<")
-    .from(aboutName, { xPercent: -50, opacity: 0 }, "<+0.5")
-    .from(aboutImg, { opacity: 0 }, ">1")
-    .from(aboutImg, { xPercent: 10, duration: 1 }, "<")
-    .to(aboutPainting, { opacity: 0 }, ">+1")
-    .from(aboutText, { opacity: 0, ease: "none" })
-    .from(aboutCTA, { scale: 0 }, ">-0.25");
+    introTL
+      .to(introImg1, { opacity: 0 })
+      .to(introSubtitleWrap, { opacity: 0 }, "<")
+      .to(introTitle, { xPercent: -50, opacity: 0 }, "<")
+      .set(aboutName, { zIndex: 30 }, "<")
+      .from(aboutName, { xPercent: -50, opacity: 0 }, "<+0.5")
+      .from(aboutImg, { opacity: 0 }, ">1")
+      .from(aboutImg, { xPercent: 10, duration: 1 }, "<")
+      .to(aboutPainting, { opacity: 0 }, ">+1")
+      .from(aboutText, { opacity: 0, ease: "none" })
+      .from(aboutCTA, { scale: 0 }, ">-0.25");
+  } else {
+    console.log("Mobile Intro");
+
+    introTL
+      .to(introImg1, { opacity: 0 })
+      .to(introSubtitleWrap, { opacity: 0 }, "<")
+      .to(introTitle, { xPercent: -50, opacity: 0 }, "<")
+      .set(aboutName, { zIndex: 30 }, "<")
+      .from(aboutName, { xPercent: -50, opacity: 0 }, "<+0.5")
+      .from(aboutPainting, { scale: 2 }, ">+0.5")
+      .from(aboutPainting, { yPercent: 50 }, "<")
+      .from(aboutText, { opacity: 0, ease: "none" }, "<")
+      .from(aboutCTA, { scale: 0 }, ">-0.25")
+      .from(aboutImg, { opacity: 0 }, "<")
+      .from(aboutImg, { xPercent: 10, duration: 1 }, "<");
+  }
 } // end function
 
 function featImgTLPrep() {
@@ -213,3 +205,11 @@ function featImgTLPrep() {
       });
   }); // end forEach
 } // end function
+
+function gsapDevTools() {
+  // Set up GSAP dev tools
+  if (devToolsOn) {
+    gsap.set(gsapDevToolsContainer, { display: "block" });
+    GSDevTools.create({ container: gsapDevToolsContainer });
+  }
+}
