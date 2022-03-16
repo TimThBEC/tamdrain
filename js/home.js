@@ -4,7 +4,7 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
-var version = 4.3;
+var version = 4.4;
 
 var devToolsOn = false; // Set to true to turn on GSAP Dev Tools.
 
@@ -17,6 +17,7 @@ var introImg1 = ".intro__img1-js";
 var introTitle = ".intro__title-js";
 var introSubtitleWrap = ".intro__subtitle-wrap-js";
 
+var aboutSectn = ".about-js";
 var aboutImg = ".about__img-js";
 var aboutPainting = ".about__painting-js";
 var aboutName = ".about__name-js";
@@ -58,7 +59,8 @@ function introTLPrep() {
     console.log("Desktop Intro");
 
     introTL
-      .to(introImg1, { opacity: 0 })
+      .set(aboutSectn, { opacity: 1 })
+      .to(introImg1, { opacity: 0 }, "<")
       .to(introSubtitleWrap, { opacity: 0 }, "<")
       .to(introTitle, { xPercent: -50, opacity: 0 }, "<")
       .set(aboutName, { zIndex: 30 }, "<")
@@ -72,7 +74,8 @@ function introTLPrep() {
     console.log("Mobile Intro");
 
     introTL
-      .to(introImg1, { opacity: 0 })
+      .set(aboutSectn, { opacity: 1 })
+      .to(introImg1, { opacity: 0 }, "<")
       .to(introSubtitleWrap, { opacity: 0 }, "<")
       .to(introTitle, { xPercent: -50, opacity: 0 }, "<")
       .set(aboutName, { zIndex: 30 }, "<")
